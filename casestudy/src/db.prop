@@ -1,0 +1,28 @@
+import java.sql.*;
+
+public class Main {
+    public static void main(String[] args) throws SQLException {
+        String url = "jdbc:mysql://localhost:3306/sakila";
+        String username = "root";
+        String password = "Yogesh@mysql";
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        String sql = "select * from actor where last_name = 'DAVIS';";
+
+        Connection con = DriverManager.getConnection(url,username,password);
+
+        Statement statement = con.createStatement();
+
+        ResultSet resultSet = statement.executeQuery(sql);
+
+        while(resultSet.next()){
+            System.out.println(resultSet.getString(2)+ " "+ resultSet.getString(3));
+        }
+    }
+}
+
+
